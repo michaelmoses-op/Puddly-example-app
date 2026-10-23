@@ -1,0 +1,150 @@
+{
+  "version": 1,
+  "framework": "Puddly",
+  "resources": [
+    {
+      "name": "book",
+      "exportName": "Book",
+      "path": "features/books/book.resource.ts",
+      "fields": [
+        {
+          "name": "id",
+          "kind": "id"
+        },
+        {
+          "name": "title",
+          "kind": "text",
+          "max": 200,
+          "sortable": true
+        },
+        {
+          "name": "author",
+          "kind": "text",
+          "max": 200,
+          "filterable": true
+        },
+        {
+          "name": "status",
+          "kind": "text",
+          "default": "want",
+          "max": 32,
+          "filterable": true
+        },
+        {
+          "name": "notes",
+          "kind": "text",
+          "optional": true,
+          "max": 2000
+        },
+        {
+          "name": "owner",
+          "kind": "ref",
+          "target": "user"
+        },
+        {
+          "name": "createdAt",
+          "kind": "timestamp",
+          "sortable": true,
+          "auto": true
+        }
+      ],
+      "constraints": [],
+      "access": [
+        {
+          "name": "create",
+          "rule": {
+            "kind": "authenticated"
+          }
+        },
+        {
+          "name": "delete",
+          "rule": {
+            "kind": "owner",
+            "field": "owner"
+          }
+        },
+        {
+          "name": "list",
+          "rule": {
+            "kind": "owner",
+            "field": "owner"
+          }
+        },
+        {
+          "name": "update",
+          "rule": {
+            "kind": "owner",
+            "field": "owner"
+          }
+        }
+      ],
+      "actions": [],
+      "refs": [
+        "user"
+      ],
+      "referencedBy": []
+    },
+    {
+      "name": "user",
+      "exportName": "User",
+      "path": "features/users/user.resource.ts",
+      "fields": [
+        {
+          "name": "id",
+          "kind": "id"
+        },
+        {
+          "name": "email",
+          "kind": "text",
+          "max": 320,
+          "filterable": true
+        },
+        {
+          "name": "name",
+          "kind": "text",
+          "max": 120
+        },
+        {
+          "name": "createdAt",
+          "kind": "timestamp",
+          "sortable": true,
+          "auto": true
+        }
+      ],
+      "constraints": [],
+      "access": [
+        {
+          "name": "create",
+          "rule": {
+            "kind": "authenticated"
+          }
+        },
+        {
+          "name": "delete",
+          "rule": {
+            "kind": "owner",
+            "field": "id"
+          }
+        },
+        {
+          "name": "list",
+          "rule": {
+            "kind": "authenticated"
+          }
+        },
+        {
+          "name": "update",
+          "rule": {
+            "kind": "owner",
+            "field": "id"
+          }
+        }
+      ],
+      "actions": [],
+      "refs": [],
+      "referencedBy": [
+        "book"
+      ]
+    }
+  ]
+}
